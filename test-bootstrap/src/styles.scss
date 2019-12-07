@@ -2,3 +2,13 @@
 @import "variables";
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+// todo: change _dropdown.scss
+.dropdown-divider {
+  margin: 0.25rem 0;
+}
+
+// todo: change _navbar.scss
+.navbar {
+  padding: 0 1rem;
+}
