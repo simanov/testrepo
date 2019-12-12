@@ -21,7 +21,7 @@ $input-btn-padding-x-lg: 0.5rem !default;
 
 $label-margin-bottom: 0.15rem !default;
 
-$form-text-margin-top: 0.125rem !default;
+$form-text-margin-top: 0.05rem !default;
 $form-check-input-gutter: 1.05rem !default;
 $form-check-input-margin-y: 0.15rem !default;
 $form-check-input-margin-x: 0.25rem !default;
@@ -52,12 +52,16 @@ $dropdown-spacer: 0.05rem !default;
 $dropdown-item-padding-y: 0.15rem !default;
 $dropdown-item-padding-x: 0.8rem !default;
 
-//list-group
+// list-group
 
 $list-group-item-padding-y: 0.35rem !default;
 $list-group-item-padding-x: 0.55rem !default;
 
-//Modal
+// Modal
 
 $modal-header-padding-y: 0.5rem !default;
 $modal-header-padding-x: 0.8rem !default;
+
+// Card
+$card-spacer-y: 0.5rem !default;
+$card-spacer-x: 0.8rem !default;
