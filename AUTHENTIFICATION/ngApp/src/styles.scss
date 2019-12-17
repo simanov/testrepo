@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variables";
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// @import "../node_modules/bootswatch/dist/spacelab/bootswatch";
+
+// todo: change _dropdown.scss
+.dropdown-divider {
+  margin: 0.25rem 0;
+}
+
+// todo: change _navbar.scss
+.navbar {
+  padding: 0 1rem;
+}
+
+.btn {
+  padding: 0.135rem 0.35rem 0.206rem;
+}
+
+.form-control {
+  padding: 0 0.35rem;
+}
+
+//------------------
+.hr-narrow {
+  margin: 0 0 0.5rem;
+}
+
+.col-form-label{
+  white-space: nowrap;
+}
