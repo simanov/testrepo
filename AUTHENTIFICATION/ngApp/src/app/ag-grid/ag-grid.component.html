@@ -1,7 +1,15 @@
-<ag-grid-angular
-style="width: 500px; height: 500px;"
-    class="ag-theme-balham"
-    [rowData]="rowData"
+<div class="container mt-2">
+
+<button (click)="getSelectedRows()">Get Selected Rows</button>
+
+  <ag-grid-angular #agGrid
+  style="width: 500px; height: 500px;"
+  class="ag-theme-balham"
+  [rowData]="rowData | async"
     [columnDefs]="columnDefs"
-    >
-</ag-grid-angular>
+    rowSelection="multiple">
+  </ag-grid-angular>
+
+
+
+</div>
