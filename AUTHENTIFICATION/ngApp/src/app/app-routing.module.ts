@@ -5,12 +5,14 @@ import { SpecialEventsComponent } from './special-events/special-events.componen
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
+import { AgGridComponent } from './ag-grid/ag-grid.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/events', pathMatch: 'full' },
   { path: 'events', component: EventsComponent },
-{ path: 'special', component: SpecialEventsComponent, canActivate: [AuthGuard] },
+  { path: 'special', component: SpecialEventsComponent, canActivate: [AuthGuard] },
+  { path: 'ag-grid', component: AgGridComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];

@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { EventsComponent } from './events/events.component';
 import { SpecialEventsComponent } from './special-events/special-events.component';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { AgGridComponent } from './ag-grid/ag-grid.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
     RegisterComponent,
     LoginComponent,
     EventsComponent,
-    SpecialEventsComponent
+    SpecialEventsComponent,
+    AgGridComponent
   ],
   imports: [
     BrowserModule,
