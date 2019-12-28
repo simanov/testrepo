@@ -8,4 +8,5 @@ async function connection(dbUser, dbPass, connStr) {
   });
 }
 
+
 module.exports.connection = connection;
