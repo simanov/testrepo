@@ -37,8 +37,8 @@ async function getNumberPrice(req, res) {
         let sqlRI = req.body.hide0row ? _sqlRI + sqltext.getSql('HAVING_RITAB') : _sqlRI;
 
         for (let i = 0; i < _digitsIN[1].length; i++) {
-            resultJSON['RESULT'].push({ 'DIGIT': _digitsIN[1][i], 'ZPTAB': [] });
-            TblJson['TABLE'].push({ 'DIGIT': _digitsIN[1][i] });
+            resultJSON['RESULT'].push({ 'INPUT': _digitsIN[1][i], 'ZPTAB': [] });
+            TblJson['TABLE'].push({ 'INPUT': _digitsIN[1][i] });
 
 
             // ===== ZPTAB =====
@@ -46,13 +46,15 @@ async function getNumberPrice(req, res) {
 
             for (let zprow = 0; zprow < r_zp.rows.length; zprow++) {
 
+                TblJson.TABLE[i] = {...TblJson.TABLE[i], ...r_zp.rows[zprow]}
+
                 // ===== GVTAB =====
                 r_zp.rows[zprow].GVTAB = [];
                 let r_gv = await qh.getResult(conn, sqlGV, [r_zp.rows[zprow].ZPCODE], 'object');
 
                 for (let gvrow = 0; gvrow < r_gv.rows.length; gvrow++) {
                     r_zp.rows[zprow].GVTAB.push(r_gv.rows[gvrow]);
-                    TblJson['TABLE'].push(r_gv.rows[gvrow]);
+                    TblJson.TABLE[i] = {...TblJson.TABLE[i], ...r_gv.rows[gvrow]}
 
                     // =====RITAB =====
                     r_gv.rows[gvrow].RITAB = [];
@@ -60,7 +62,7 @@ async function getNumberPrice(req, res) {
 
                     for (let rirow = 0; rirow < r_ri.rows.length; rirow++) {
                         r_gv.rows[gvrow].RITAB.push(r_ri.rows[rirow]);
-
+                        TblJson.TABLE[i] = {...TblJson.TABLE[i], ...r_ri.rows[rirow]}
                     }
 
                 }
@@ -74,8 +76,9 @@ async function getNumberPrice(req, res) {
 
         console.log('===================================================================================');
         console.log(TblJson);
+        resultJSON = {...resultJSON, ...TblJson}
         //----------------------------------------------------------
-        res.send(resultJSON);
+        res.send(resultJSON.TABLE);
 
 
     } catch (error) {
