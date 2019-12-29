@@ -45,6 +45,11 @@ async function getNumberPrice(req, res) {
         let sqlGV = req.body.onlyprod ? sqltext.getSql('GVTAB', 'WH_GVTAB_MAXV') : sqltext.getSql('GVTAB');
         let _sqlRI = req.body.onlyprod ? sqltext.getSql('RITAB', 'WH_RITAB_MAXV') + sqltext.getSql('GROUPBY_RITAB') : sqltext.getSql('RITAB') + sqltext.getSql('GROUPBY_RITAB');
         let sqlRI = req.body.hide0row ? _sqlRI + sqltext.getSql('HAVING_RITAB') : _sqlRI;
+        //-----------------------------
+        
+
+
+        //-----------------------------
 
         for (let i = 0; i < _digitsIN[1].length; i++) {
             resultJSON['RESULT'].push({ 'INPUT': _digitsIN[1][i], 'ZPTAB': [] });
@@ -84,11 +89,15 @@ async function getNumberPrice(req, res) {
 
         }
 
+        let ColJson = qh.getCols(TblJson.TABLE[0]);
+
+        //{ "field": "athlete" },
+        //console.log(Object.keys(TblJson.TABLE[0]));
         //console.log('===================================================================================');
         //console.log(TblJson);
-        resultJSON = { ...resultJSON, ...TblJson }
+        resultJSON = { ...resultJSON, ...TblJson, ...ColJson }
         //----------------------------------------------------------
-        res.send(resultJSON.TABLE);
+        res.send(resultJSON);
 
 
     } catch (error) {

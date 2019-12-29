@@ -21,48 +21,6 @@ export class AgGridComponent {
 
     this.defaultColDef = { resizable: true };
 
-    this.columnDefs = [
-      { field: 'INPUT' },
-      { field: 'DIGITS' },
-      { field: 'ZPCODE' },
-      { field: 'DES' },
-      { field: 'SPECIAL_NUMBER' },
-      { field: 'GV' },
-      { field: 'GVDES' },
-      { field: 'GVVS' },
-      { field: 'VSDATE' },
-      { field: 'ZN' },
-      { field: 'ZNDES' },
-      { field: 'ZO' },
-      { field: 'ZODES' },
-      { field: 'CGI' },
-      { field: 'NP' },
-      { field: 'RI' },
-      { field: 'RIDES' },
-      { field: 'RIVS' },
-      { field: 'RIVSD' },
-      { field: 'MAXRIVS' },
-      { field: 'UP' },
-      { field: 'UPVS' },
-      { field: 'TT' },
-      { field: 'EC' },
-      { field: 'RTID' },
-      { field: 'CM' },
-      { field: 'IMC' },
-      { field: 'RN' },
-      { field: 'ITV' },
-      { field: 'RND' },
-      { field: 'RPT' },
-      { field: 'PVF' },
-      { field: 'UOM' },
-      { field: 'CURR' }
-    ];
-
-
-
-
-
-
   }
 
   sizeToFit() {
@@ -98,10 +56,8 @@ export class AgGridComponent {
       "dateFormat": "'YYYY.MM.DD HH24:MI:SS'"
     }`;
 
-    this.rowData = this.http.post<any>('http://localhost:4428/api/BSCS/number_price', mybody, { headers: myHeaders });
-
-    this.autoSizeAll(false);
-
+    this.http.post<any>('http://localhost:4428/api/BSCS/number_price', mybody, { headers: myHeaders })
+      .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; });
 
   }
 
