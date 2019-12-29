@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
 import { AgGridComponent } from './ag-grid/ag-grid.component';
+import { AgGridColautosizeComponent } from './ag-grid-colautosize/ag-grid-colautosize.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'special', component: SpecialEventsComponent, canActivate: [AuthGuard] },
   { path: 'ag-grid', component: AgGridComponent },
+  { path: 'agg-autosize', component: AgGridColautosizeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];

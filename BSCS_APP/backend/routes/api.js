@@ -13,6 +13,8 @@ router.route('/dbcheck').post(q.checkConnection);
 
 router.route('/BSCS/number_price').post(q.getNumberPrice);
 
+router.route('/athlete').get(q.getAthlete);
+router.route('/athletecols').get(q.getAthleteCols);
 
 
 

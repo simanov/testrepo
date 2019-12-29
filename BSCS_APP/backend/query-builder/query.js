@@ -3,6 +3,7 @@ const dbConfig = require('../config/dbconfig');
 const tns = require('../config/tnsnames');
 const qh = require('./query-helper');
 const sqltext = require('./sqltext');
+const testAthlete = require('../wwtemp/athlete');
 
 async function checkConnection(req, res) {
     let conn;
@@ -19,6 +20,15 @@ async function checkConnection(req, res) {
     }
 }
 
+async function getAthlete(req, res) {
+    let a = testAthlete.getAT();
+    res.send(a);
+}
+
+async function getAthleteCols(req, res) {
+    let a = testAthlete.getATcols();
+    res.send(a);
+}
 
 async function getNumberPrice(req, res) {
     let conn;
@@ -46,7 +56,7 @@ async function getNumberPrice(req, res) {
 
             for (let zprow = 0; zprow < r_zp.rows.length; zprow++) {
 
-                TblJson.TABLE[i] = {...TblJson.TABLE[i], ...r_zp.rows[zprow]}
+                TblJson.TABLE[i] = { ...TblJson.TABLE[i], ...r_zp.rows[zprow] }
 
                 // ===== GVTAB =====
                 r_zp.rows[zprow].GVTAB = [];
@@ -54,7 +64,7 @@ async function getNumberPrice(req, res) {
 
                 for (let gvrow = 0; gvrow < r_gv.rows.length; gvrow++) {
                     r_zp.rows[zprow].GVTAB.push(r_gv.rows[gvrow]);
-                    TblJson.TABLE[i] = {...TblJson.TABLE[i], ...r_gv.rows[gvrow]}
+                    TblJson.TABLE[i] = { ...TblJson.TABLE[i], ...r_gv.rows[gvrow] }
 
                     // =====RITAB =====
                     r_gv.rows[gvrow].RITAB = [];
@@ -62,7 +72,7 @@ async function getNumberPrice(req, res) {
 
                     for (let rirow = 0; rirow < r_ri.rows.length; rirow++) {
                         r_gv.rows[gvrow].RITAB.push(r_ri.rows[rirow]);
-                        TblJson.TABLE[i] = {...TblJson.TABLE[i], ...r_ri.rows[rirow]}
+                        TblJson.TABLE[i] = { ...TblJson.TABLE[i], ...r_ri.rows[rirow] }
                     }
 
                 }
@@ -74,9 +84,9 @@ async function getNumberPrice(req, res) {
 
         }
 
-        console.log('===================================================================================');
-        console.log(TblJson);
-        resultJSON = {...resultJSON, ...TblJson}
+        //console.log('===================================================================================');
+        //console.log(TblJson);
+        resultJSON = { ...resultJSON, ...TblJson }
         //----------------------------------------------------------
         res.send(resultJSON.TABLE);
 
@@ -93,3 +103,5 @@ async function getNumberPrice(req, res) {
 
 module.exports.getNumberPrice = getNumberPrice;
 module.exports.checkConnection = checkConnection;
+module.exports.getAthlete = getAthlete;
+module.exports.getAthleteCols = getAthleteCols;
