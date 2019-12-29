@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AllCommunityModules, Module } from "@ag-grid-community/all-modules";
+import { AllCommunityModules, Module } from '@ag-grid-community/all-modules';
 
 @Component({
   selector: 'app-ag-grid-colautosize',
@@ -11,32 +11,20 @@ export class AgGridColautosizeComponent implements OnInit {
 
   private gridApi;
   private gridColumnApi;
-  public modules: Module[] = AllCommunityModules;
+  private modules: Module[] = AllCommunityModules;
 
   private columnDefs;
   private defaultColDef;
   private rowData: [];
 
   constructor(private http: HttpClient) {
-    /* this.columnDefs = [
-      { "field": "athlete" },
-      { "field": "age" },
-      { "field": "country" },
-      { "field": "year" },
-      { "field": "date" },
-      { "field": "sport" },
-      { "field": "gold" },
-      { "field": "silver" },
-      { "field": "bronze" },
-      { "field": "total" }
-    ]; */
 
     this.defaultColDef = { resizable: true };
   }
 
   ngOnInit() {
 
-    //console.log(this.rowData);
+    // console.log(this.rowData);
   }
 
 
@@ -46,8 +34,8 @@ export class AgGridColautosizeComponent implements OnInit {
   }
 
   autoSizeAll(skipHeader) {
-    var allColumnIds = [];
-    this.gridColumnApi.getAllColumns().forEach(function (column) {
+    const allColumnIds = [];
+    this.gridColumnApi.getAllColumns().forEach((column) => {
       allColumnIds.push(column.colId);
     });
     this.gridColumnApi.autoSizeColumns(allColumnIds, skipHeader);
@@ -57,10 +45,10 @@ export class AgGridColautosizeComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.http.get<any>("http://localhost:4428/api/athletecols")
+    this.http.get<any>('http://localhost:4428/api/athletecols')
       .subscribe(cols => { this.columnDefs = cols; });
 
-    this.http.get<any>("http://localhost:4428/api/athlete")
+    this.http.get<any>('http://localhost:4428/api/athlete')
       .subscribe(data => { this.rowData = data; });
   }
 }
