@@ -89,7 +89,9 @@ async function getNumberPrice(req, res) {
 
         }
 
-        let ColJson = qh.getCols(TblJson.TABLE[0]);
+        //let ColJson = qh.getCols(TblJson.TABLE[0]);
+
+        let ColJson = qh.getAllCols(TblJson.TABLE);
 
         //{ "field": "athlete" },
         //console.log(Object.keys(TblJson.TABLE[0]));

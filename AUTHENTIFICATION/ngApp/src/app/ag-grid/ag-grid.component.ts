@@ -49,7 +49,7 @@ export class AgGridComponent {
       "db":"TBSCSDEV",
       "dbUser": "SYSADM",
       "dbPass": "SYSADM",
-      "digits": "2030, +99450880111, +99450880112, 650, +99450878878, 6110, 6990, +99450879004, +99450650",
+      "digits": "2031, 2030, +99450880111, +99450880112, 650, +99450878878, 6110, 6990, +99450879004, +99450650",
       "onlyprod": true,
       "hide0row": true,
       "timeZone": "'Atlantic/Reykjavik'",

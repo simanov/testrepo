@@ -53,9 +53,34 @@ function getCols(jsonTable) {
   colStr = colStr.slice(0, -2);
 
   colStr = '{ "COLDEF": [ ' + colStr + ' ] }';
+
+  //console.log(colStr);
   return JSON.parse(colStr);
+}
+
+function getAllCols(jsonTable) {
+  let tc = jsonTable.length; // result_count
+  let colarr = [];
+  for (var t0 in jsonTable) {
+    let tbl = jsonTable[t0];
+    for (var k in Object.keys(tbl)) {
+      let v = Object.keys(tbl)[k];
+      if (colarr.indexOf(v) < 0) {
+        colarr.push(v);
+      }
+    }
+  }
+
+  let colarr2 = colarr.map((val) => '{ "field": "' + val+ '" }');
+
+  let colObj = `[${colarr2}]`;
+
+  return JSON.parse('{ "COLDEF": ' + colObj + ' }');
+
+  //return JSON.parse('{ "COLDEF: "' + colObj + ' }');
 }
 
 module.exports.getResult = getResult;
 module.exports.getINparams = getINparams;
 module.exports.getCols = getCols;
+module.exports.getAllCols = getAllCols;
