@@ -1,26 +1,27 @@
 <div class="container mt-2">
   <div class="numberprice">
     <form class="form">
-    <div class="form-row">
-      <div class="form-group col-md-3">
-        <label for="database">Database</label>
-        <input [(ngModel)]="BSCSData.db" name="database" type="text" class="form-control" required>
-      </div>      
-      <div class="form-group col-md-3">
-        <label for="user">User</label>
-        <input [(ngModel)]="BSCSData.dbUser" name="user" type="text" class="form-control" required>
-      </div>   
-      <div class="form-group col-md-3">
-        <label for="user">Password</label>
-        <input [(ngModel)]="BSCSData.dbPass" name="password" type="password" class="form-control" required>
-      </div>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="database">Database</label>
+          <input [(ngModel)]="BSCSData.db" name="database" type="text" class="form-control" required>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="user">User</label>
+          <input [(ngModel)]="BSCSData.dbUser" name="user" type="text" class="form-control" required>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="user">Password</label>
+          <input [(ngModel)]="BSCSData.dbPass" name="password" type="password" class="form-control" required>
+        </div>
       </div>
       <div class="form-group">
         <label for="digits">Digits: </label>
-        <input [(ngModel)]="BSCSData.digits" name="digits" type="text" class="form-control" placeholder="Enter digits..." required>
+        <input [(ngModel)]="BSCSData.digits" name="digits" type="text" class="form-control"
+          placeholder="Enter digits..." required>
       </div>
-        <button (click)="getNumberPrice()" type="button" class="btn btn-success float-right">Get Price</button>
-      
+      <button (click)="getNumberPrice()" type="button" class="btn btn-success float-right">Get Price</button>
+
     </form>
   </div>
 
@@ -28,9 +29,11 @@
     <button (click)="sizeToFit()">Size to Fit</button>
     <button (click)="autoSizeAll(false)">Auto-Size All</button>
     <button (click)="autoSizeAll(true)">Auto-Size All (Skip Header)</button>
+    <button (click)="custFunc()">Custom Function</button>
   </div>
   <ag-grid-angular #agGrid style="width: 100%; height: 85vh;" id="myGrid" class="ag-theme-balham" [modules]="modules"
-    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="rowData" (gridReady)="onGridReady($event)">
+    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="rowData" (gridReady)="onGridReady($event)"
+    (componentStateChanged)="onComponentStateChanged($event)" [getRowHeight]="getRowHeight">
   </ag-grid-angular>
 
 </div>
