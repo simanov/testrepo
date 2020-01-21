@@ -2,7 +2,7 @@ const express = require('express');
 const q = require('../query-builder/query');
 const router = express.Router();
 
-const dbConfig = require('../config/dbconfig');
+const dbConfig = require('../config/dbConfig');
 const tns = require('../config/tnsnames');
 
 router.get('/', (req, res) => {
@@ -13,8 +13,7 @@ router.route('/dbcheck').post(q.checkConnection);
 
 router.route('/BSCS/number_price').post(q.getNumberPrice);
 
-router.route('/athlete').get(q.getAthlete);
-router.route('/athletecols').get(q.getAthleteCols);
+router.route('/BSCS/digits_info').post(q.getDigitsInfo);
 
 
 

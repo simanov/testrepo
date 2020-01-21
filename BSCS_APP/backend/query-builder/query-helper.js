@@ -16,9 +16,7 @@ async function getResult(conn, sql, prm, outf) {
   // SESSION Parameters
   await conn.execute(`ALTER SESSION SET NLS_DATE_LANGUAGE='AMERICAN'`);
   await conn.execute(`ALTER SESSION SET NLS_LANGUAGE='AMERICAN'`);
-  await conn.execute(
-    `ALTER SESSION SET NLS_DATE_FORMAT='DD.MM.YYYY HH24:MI:SS'`
-  );
+  await conn.execute(`ALTER SESSION SET NLS_DATE_FORMAT='DD.MM.YYYY HH24:MI:SS'`);
   await conn.execute(`ALTER SESSION SET TIME_ZONE='Atlantic/Reykjavik'`);
 
   return (result = await conn.execute(sql, params, outfrmt));
@@ -71,7 +69,7 @@ function getAllCols(jsonTable) {
     }
   }
 
-  let colarr2 = colarr.map((val) => '{ "field": "' + val+ '" }');
+  let colarr2 = colarr.map(val => '{ "field": "' + val + '" }');
 
   let colObj = `[${colarr2}]`;
 
