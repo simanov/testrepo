@@ -8,7 +8,15 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
   title = 'ngApp';
+  // isLoggedIn = false;
 
   constructor(private authService: AuthService) { }
+
+  logoutUser() {
+    this.authService.logoutUser();
+  }
+
+  isLoggedIn = () => this.authService.loggedIn();
+
 
 }

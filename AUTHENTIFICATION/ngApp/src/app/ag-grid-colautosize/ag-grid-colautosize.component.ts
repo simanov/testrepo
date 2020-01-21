@@ -11,15 +11,25 @@ export class AgGridColautosizeComponent implements OnInit {
 
   private gridApi;
   private gridColumnApi;
-  private modules: Module[] = AllCommunityModules;
+  modules: Module[] = AllCommunityModules;
 
-  private columnDefs;
-  private defaultColDef;
-  private rowData: [];
+  columnDefs;
+  defaultColDef;
+  rowData: [];
+
+  getRowHeight;
+
+  private rowCount = 0;
+  calcHeight = '70vh';
 
   constructor(private http: HttpClient) {
 
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = {
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.getRowHeight = (params) => 20;
   }
 
   ngOnInit() {
@@ -45,10 +55,10 @@ export class AgGridColautosizeComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.http.get<any>('http://localhost:4428/api/athletecols')
+    this.http.get<any>('http://tdbclin.azercell.com:4428/api/athletecols')
       .subscribe(cols => { this.columnDefs = cols; });
 
-    this.http.get<any>('http://localhost:4428/api/athlete')
-      .subscribe(data => { this.rowData = data; });
+    this.http.get<any>('http://tdbclin.azercell.com:4428/api/athlete')
+      .subscribe(data => { this.rowData = data; if (data.length <= 20) { this.calcHeight = (data.length * 22) + 40 + 'px'; } });
   }
 }

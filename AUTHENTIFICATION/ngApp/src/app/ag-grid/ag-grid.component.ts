@@ -11,22 +11,22 @@ import { AllCommunityModules, Module } from '@ag-grid-community/all-modules';
 export class AgGridComponent {
   private gridApi;
   private gridColumnApi;
-  private modules: Module[] = AllCommunityModules;
+  modules: Module[] = AllCommunityModules;
 
-  private columnDefs;
-  private defaultColDef;
-  private rowData;
-  private getRowHeight;
+  columnDefs;
+  defaultColDef;
+  rowData;
+  getRowHeight;
 
-  private BSCSData = {
-    db: "TBSCSDEV",
-    dbUser: "SYSADM",
-    dbPass: "SYSADM",
-    digits: "2031, 2030, +99450880111, +99450880112, 650, +99450878878, 6110, 6990, +99450879004, +99450650",
+  BSCSData = {
+    db: 'TBSCSDEV',
+    dbUser: 'SYSADM',
+    dbPass: 'SYSADM',
+    digits: '2031, 2030, +99450880111, +99450880112, 650, +99450878878, 6110, 6990, +99450879004, +99450650',
     onlyprod: true,
     hide0row: true,
-    timeZone: "'Atlantic/Reykjavik'",
-    dateFormat: "'YYYY.MM.DD HH24:MI:SS'"
+    timeZone: 'Atlantic/Reykjavik',
+    dateFormat: 'YYYY.MM.DD HH24:MI:SS'
   };
 
   private mybody;
@@ -39,7 +39,7 @@ export class AgGridComponent {
       filter: true
     };
 
-    this.getRowHeight = (params) => { return 30 }
+    this.getRowHeight = (params) => 20;
 
   }
 
@@ -72,8 +72,8 @@ export class AgGridComponent {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    //this.getRowHeight = 150;
-    //console.log(params);
+    // this.getRowHeight = 150;
+    // console.log(params);
   }
 
   getNumberPrice() {
@@ -91,12 +91,15 @@ export class AgGridComponent {
       "dateFormat": "'YYYY.MM.DD HH24:MI:SS'"
     }`;
 
-    this.http.post<any>('http://localhost:4428/api/BSCS/number_price', JSON.stringify(this.BSCSData), { headers: myHeaders })
+    this.http.post<any>('http://localhost:4428/api/BSCS/digits_info', JSON.stringify(this.BSCSData), { headers: myHeaders })
       .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; });
+
+    /* this.http.post<any>('http://tdbclin.azercell.com:4428/api/BSCS/number_price', JSON.stringify(this.BSCSData), { headers: myHeaders })
+      .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; }); */
 
     this.BSCSData.onlyprod = true;
 
-    //console.log(JSON.stringify(this.BSCSData));
+    // console.log(JSON.stringify(this.BSCSData));
 
 
 
@@ -105,7 +108,7 @@ export class AgGridComponent {
 
 
   custFunc() {
-    //gridOptions.columnApi.sizeColumnsToFit();
+    // gridOptions.columnApi.sizeColumnsToFit();
   }
 
 
