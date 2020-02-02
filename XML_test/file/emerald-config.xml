@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config instanceName="emeraldOne" port="9990">
+	<connectionPools>
+		<connectionPool name="emerald-pool"
+                        username="smsserv"
+                        password="smsserv"
+                        url="jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.137)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.138)(PORT=1521))  (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.139)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.140)(PORT=1521)) (FAILOVER=ON)(LOAD_BALANCE=YES)	(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=APPGROUP1.AZSRVC)	(FAILOVER_MODE=(TYPE=SELECT)(METHOD=PRECONNECT)(RETRIES=180)(DELAY=5))) )"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="20"
+                        maxActive="60"
+                        >
+			<!-- (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.139)(PORT=1521))	 -->            
+			<maxAge>300000</maxAge>
+			<jmxEnabled>true</jmxEnabled>
+			<testWhileIdle>true</testWhileIdle>
+			<testOnBorrow>false</testOnBorrow>
+			<validationQuery>SELECT 1 FROM DUAL</validationQuery>
+			<testOnReturn>false</testOnReturn>
+			<validationInterval>30000</validationInterval>
+			<timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+			<maxWait>10000</maxWait>
+			<removeAbandonedTimeout>60</removeAbandonedTimeout>
+			<minEvictableIdleTimeMillis>30000</minEvictableIdleTimeMillis>
+			<minIdle>20</minIdle>
+			<maxIdle>60</maxIdle>
+			<logAbandoned>false</logAbandoned>
+			<removeAbandoned>true</removeAbandoned>
+			<initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+			<!--initSQL>ALTER SESSION SET CURRENT_SCHEMA = SUBSCRIPTION</initSQL-->
+		</connectionPool>
+
+		<connectionPool name="onsubs-pool"
+                        username="emerald"
+                        password="emerald"
+                        url="jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = onsubs-scan.azercell.com)(PORT = 1521)) (FAILOVER = ON) (LOAD_BALANCE = YES)(CONNECT_DATA =(SERVER = DEDICATED) (SERVICE_NAME = SRV_ONSUBS.AZERCELL.COM)))"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="3"
+                        maxActive="30"
+                        >
+			<maxAge>600000</maxAge>
+			<jmxEnabled>true</jmxEnabled>
+			<testWhileIdle>true</testWhileIdle>
+			<testOnBorrow>false</testOnBorrow>
+			<validationQuery>SELECT 1 FROM DUAL</validationQuery>
+			<testOnReturn>false</testOnReturn>
+			<validationInterval>30000</validationInterval>
+			<timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+			<maxWait>80000</maxWait>
+			<removeAbandonedTimeout>60</removeAbandonedTimeout>
+			<minEvictableIdleTimeMillis>60000</minEvictableIdleTimeMillis>
+			<minIdle>3</minIdle>
+			<maxIdle>30</maxIdle>
+			<logAbandoned>false</logAbandoned>
+			<removeAbandoned>true</removeAbandoned>
+			<initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+		</connectionPool>
+
+		<connectionPool name="bscs-pool"
+                        username="emerald"
+                        password="emerald"
+                        url="jdbc:oracle:thin:@10.0.153.20:1521:BSCS"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="3"
+                        maxActive="10"
+                        >
+			<maxAge>300000</maxAge>
+			<jmxEnabled>true</jmxEnabled>
+			<testWhileIdle>true</testWhileIdle>
+			<testOnBorrow>false</testOnBorrow>
+			<validationQuery>SELECT 1 FROM DUAL</validationQuery>
+			<testOnReturn>false</testOnReturn>
+			<validationInterval>30000</validationInterval>
+			<timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+			<maxWait>120000</maxWait>
+			<removeAbandonedTimeout>60</removeAbandonedTimeout>
+			<minEvictableIdleTimeMillis>30000</minEvictableIdleTimeMillis>
+			<minIdle>3</minIdle>
+			<maxIdle>10</maxIdle>
+			<logAbandoned>false</logAbandoned>
+			<removeAbandoned>true</removeAbandoned>
+			<initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+		</connectionPool>
+
+		<connectionPool name="bscs-billing-pool"
+                        username="emerald_billing"
+                        password="emerbil"
+                        url="jdbc:oracle:thin:@10.0.153.20:1521:BSCS"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="3"
+                        maxActive="10"
+                        >
+			<maxAge>300000</maxAge>
+			<jmxEnabled>true</jmxEnabled>
+			<testWhileIdle>true</testWhileIdle>
+			<testOnBorrow>false</testOnBorrow>
+			<validationQuery>SELECT 1 FROM DUAL</validationQuery>
+			<testOnReturn>false</testOnReturn>
+			<validationInterval>30000</validationInterval>
+			<timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+			<maxWait>120000</maxWait>
+			<removeAbandonedTimeout>60</removeAbandonedTimeout>
+			<minEvictableIdleTimeMillis>30000</minEvictableIdleTimeMillis>
+			<minIdle>3</minIdle>
+			<maxIdle>10</maxIdle>
+			<logAbandoned>false</logAbandoned>
+			<removeAbandoned>true</removeAbandoned>
+			<initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+		</connectionPool>
+
+	</connectionPools>
+
+
+
+	<smsSenders>        
+		<smsSender name="default" connectionPool = "onsubs-pool"> 
+			<sourceTon>5</sourceTon>
+			<sourceNpi>0</sourceNpi>
+			<priority>5</priority>
+			<smsValidity>7</smsValidity>
+			<intervalStart>0</intervalStart>
+			<intervalEnd>24</intervalEnd>
+		</smsSender>
+		<smsSender name="fromshortnumber" connectionPool = "onsubs-pool"> 
+			<sourceTon>0</sourceTon>
+			<sourceNpi>1</sourceNpi>
+			<priority>5</priority>
+			<smsValidity>7</smsValidity>
+			<intervalStart>0</intervalStart>
+			<intervalEnd>24</intervalEnd>
+		</smsSender>
+		<smsSender name="sms_http_alphanumeric" connectionPool = "onsubs-pool" connectionType="http">
+			<sourceTon>5</sourceTon>
+			<sourceNpi>0</sourceNpi>
+			<priority>5</priority>
+			<smsValidity>7</smsValidity>
+			<intervalStart>0</intervalStart>
+			<intervalEnd>24</intervalEnd>
+			<webUrl>http://10.0.230.13:8170/SMSGateUni/SMSGateServlet?pdutype=T&amp;Source_addr={0}&amp;Destination_addr={1}&amp;Source_addr_ton=5&amp;Source_addr_npi=0&amp;Short_message={2}</webUrl>
+		</smsSender>
+		<smsSender name="sms_http_short_number" connectionPool = "onsubs-pool" connectionType="http">
+			<sourceTon>0</sourceTon>
+			<sourceNpi>1</sourceNpi>
+			<priority>5</priority>
+			<smsValidity>7</smsValidity>
+			<intervalStart>0</intervalStart>
+			<intervalEnd>24</intervalEnd>
+			<webUrl>http://10.0.230.13:8170/SMSGateUni/SMSGateServlet?pdutype=T&amp;Source_addr={0}&amp;Destination_addr={1}&amp;Source_addr_ton=0&amp;Source_addr_npi=1&amp;Short_message={2}</webUrl>
+		</smsSender>
+		<smsSender name="openmind" connectionPool = "onsubs-pool" connectionType="openmind">
+			<webUrl>http://10.0.154.88:8070/appsender</webUrl>
+			<username>app_sender</username>
+			<password>Fafozam1</password>
+		</smsSender>
+	</smsSenders>
+
+	<threadPools>
+		<threadPool name="default" size="40" queueSize="1000"/>
+		<threadPool name="smsSender" size="1" queueSize="100"/>
+		<threadPool name="balancePluginThreadPool" size="30" queueSize="5000"/>
+		<threadPool name="vsmeSubscriptionPluginThreadPool" size="30" queueSize="3000"/>
+	</threadPools>
+
+	<plugins>
+		<plugin id="6569" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/pptc.xml"/>
+		<!--plugin id="2039" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/Bolge_Unlimited_voice_pack.xml"/-->
+		<!--plugin id="1014" class="com.azercell.emerald.monthly.MonthlyPlugin" threadPoolName="vsmeSubscriptionPluginThreadPool" configFile="../conf/monthly-config.xml"/>
+	<plugin id="3051" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/PromoCodesCampaign/promo-codes-campaign.xml"/>
+        <plugin id="2069" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/roaming_packet.xml"/>
+        <plugin id="3015" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/SimOnlyPostpaidSubscribers/sim_oonly_campaign.xml"/>
+        <plugin id="6568" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/pptc_old.xml"/-->
+		<plugin id="606978" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/mnp/mnpkombo_25_45_old.xml"/>
+		<!--
+        <plugin id="7777" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/7577.xml"/>
+        <plugin id="3011" class="com.azercell.emerald.plugins.balance.BalancePlugin" threadPoolName="balancePluginThreadPool" configFile="../conf/emerald-balance-plugin-config.properties"/>
+	<plugin id="4505" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/RegionalBundleBolge/regional-bundle-bolge.xml"/>
+        <plugin id="3008" class="com.azercell.sacc.bundles.weekend.WeekendBundle" threadPoolName="vsmeSubscriptionPluginThreadPool" configFile="../conf/weekend-bunde-config.properties"/>
+        <plugin id="3006" class="com.azercell.sacc.bundles.night.NightBundle" threadPoolName="vsmeSubscriptionPluginThreadPool" configFile="../conf/night-bunde-config.properties"/>
+        <plugin id="1007" class="com.azercell.sacc.bundles.hour.HourBundle" threadPoolName="vsmeSubscriptionPluginThreadPool" configFile="../conf/hour-bunde-config.properties"/>
+	<plugin id="5789" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/umico.xml"/-->
+
+		<!-- Default SMS Sender -->
+		<plugin id="-300" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/sms-sender.properties"/>
+	</plugins>
+</config>

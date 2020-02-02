@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Ag-Grid-Angular
+/*
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+*/
+
+@import "variables";
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// @import "../node_modules/bootswatch/dist/spacelab/bootswatch";
+
+// todo: change _dropdown.scss
+.dropdown-divider {
+  margin: 0.25rem 0;
+}
+
+// todo: change _navbar.scss
+.navbar {
+  padding: 0 1rem;
+}
+
+.btn {
+  padding: 0.135rem 0.35rem 0.206rem;
+}
+
+.form-control {
+  padding: 0 0.35rem;
+}
+
+//------------------
+.hr-narrow {
+  margin: 0 0 0.5rem;
+}
+
+.col-form-label{
+  white-space: nowrap;
+}
+
+
+
+
+
+.ag-theme-balham .ag-cell {
+  line-height: unset;
+  border: 1px solid transparent;
+  border-left: 1px solid #dee2e6;
+  padding-left: 5px;
+  padding-right: 5px; }
+
+  .ag-theme-balham .ag-header-cell,
+  .ag-theme-balham .ag-header-group-cell {
+    border-style: solid;
+    border-color: #BDC3C7;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-width: 0;
+  }

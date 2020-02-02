@@ -91,11 +91,11 @@ export class AgGridComponent {
       "dateFormat": "'YYYY.MM.DD HH24:MI:SS'"
     }`;
 
-    this.http.post<any>('http://localhost:4428/api/BSCS/digits_info', JSON.stringify(this.BSCSData), { headers: myHeaders })
-      .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; });
+    /*  this.http.post<any>('http://localhost:4428/api/BSCS/digits_info', JSON.stringify(this.BSCSData), { headers: myHeaders })
+       .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; }); */
 
-    /* this.http.post<any>('http://tdbclin.azercell.com:4428/api/BSCS/number_price', JSON.stringify(this.BSCSData), { headers: myHeaders })
-      .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; }); */
+    this.http.post<any>('http://tdbclin.azercell.com:4428/api/BSCS/digits_info', JSON.stringify(this.BSCSData), { headers: myHeaders })
+      .subscribe(data => { this.columnDefs = data.COLDEF; this.rowData = data.TABLE; });
 
     this.BSCSData.onlyprod = true;
 
