@@ -66,34 +66,54 @@ function getNodes(node, obj) {
   if ((node.nodeType == 9) | (node.nodeType == 1)) {
     if (node.hasChildNodes) {
       a = { ...a, children: [] };
+      if (node.hasAttributes) {
+        let attr = node.attributes;
+        if (attr && attr.length > 0) {
+          let attr_arr = {};
+          for (let atl = 0; atl < attr.length; atl++) {
+            let atr = {};
+            atr['@_' + attr[atl].name] = attr[atl].value;
+            attr_arr = { ...attr_arr, ...atr };
+          }
+          //nv = { ...nv, attr: [] };
+          a.children.push(attr_arr);
+          //console.log('------------', nv, attr_arr);
+        }
+      }
       let b = {};
       for (let i = 0; i < node.childNodes.length; i++) {
         b = { ...b, ...getNodes(node.childNodes[i], b) };
         a.children.push(b);
       }
     }
-  }
-  else{
+  } else {
     a = { ...obj, ...getNodeContent(node) };
-}
+  }
   return a;
 }
 
-function getNodeContent(node) {
+function getNodeContent(node, narr) {
   let nv = {};
   if ((node.nodeType == 1) | (node.nodeType == 9)) {
-    nv = { name: node.nodeName };
+    nv = { ...nv, name: node.nodeName };
   }
-  if (node.hasAttributes){
+  /* 
+  if (node.hasAttributes) {
     let attr = node.attributes;
-    if(attr && attr.length > 0){
-      for(let atl = 0; atl < attr.length; atl++){
-        nv={ ...nv, 'attr': attr[atl].name}
+    if (attr && attr.length > 0) {
+      let attr_arr = {};
+      for (let atl = 0; atl < attr.length; atl++) {
+        let atr = {};
+        atr['@_' + attr[atl].name] = attr[atl].value;
+        attr_arr = { ...attr_arr, ...atr };
       }
-        //nv = { ...nv, val };
-      console.log('------------',nv);
+      nv = { ...nv, attr: [] };
+      nv.attr.push(attr_arr);
+      //console.log('------------', nv, attr_arr);
     }
   }
+  */
+  //if(node.nodeType == 8){console.log('+++++++++++++++++++++++++++++++++', node.nodeName, node.nodeValue)}
   return nv;
 }
 

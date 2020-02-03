@@ -14,6 +14,8 @@ import { SpecialEventsComponent } from './special-events/special-events.componen
 import { TokenInterceptorService } from './token-interceptor.service';
 import { AgGridComponent } from './ag-grid/ag-grid.component';
 import { AgGridColautosizeComponent } from './ag-grid-colautosize/ag-grid-colautosize.component';
+import { AgTreeComponent } from './ag-tree/ag-tree.component';
+import { TreeModule } from 'angular-tree-component';
 
 
 @NgModule({
@@ -24,14 +26,16 @@ import { AgGridColautosizeComponent } from './ag-grid-colautosize/ag-grid-colaut
     EventsComponent,
     SpecialEventsComponent,
     AgGridComponent,
-    AgGridColautosizeComponent
+    AgGridColautosizeComponent,
+    AgTreeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    TreeModule.forRoot()
   ],
   providers: [
     {
