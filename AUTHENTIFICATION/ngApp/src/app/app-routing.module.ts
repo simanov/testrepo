@@ -8,6 +8,7 @@ import { AuthGuard } from './auth.guard';
 import { AgGridComponent } from './ag-grid/ag-grid.component';
 import { AgGridColautosizeComponent } from './ag-grid-colautosize/ag-grid-colautosize.component';
 import { AgTreeComponent } from './ag-tree/ag-tree.component';
+import { JsTreeComponent } from './js-tree/js-tree.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'ag-grid', component: AgGridComponent },
   { path: 'agg-autosize', component: AgGridColautosizeComponent },
   { path: 'ag-tree', component: AgTreeComponent },
+  { path: 'js-tree', component: JsTreeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];

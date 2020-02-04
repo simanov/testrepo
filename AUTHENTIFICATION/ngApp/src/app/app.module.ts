@@ -16,6 +16,7 @@ import { AgGridComponent } from './ag-grid/ag-grid.component';
 import { AgGridColautosizeComponent } from './ag-grid-colautosize/ag-grid-colautosize.component';
 import { AgTreeComponent } from './ag-tree/ag-tree.component';
 import { TreeModule } from 'angular-tree-component';
+import { JsTreeComponent } from './js-tree/js-tree.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { TreeModule } from 'angular-tree-component';
     SpecialEventsComponent,
     AgGridComponent,
     AgGridColautosizeComponent,
-    AgTreeComponent
+    AgTreeComponent,
+    JsTreeComponent
   ],
   imports: [
     BrowserModule,
