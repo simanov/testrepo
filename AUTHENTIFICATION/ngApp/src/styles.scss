@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 // Ag-Grid-Angular
+//@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
-@import '~angular-tree-component/dist/angular-tree-component.css';
-
+@import "~angular-tree-component/dist/angular-tree-component.css";
 
 @import "variables";
 
@@ -38,26 +39,23 @@
   margin: 0 0 0.5rem;
 }
 
-.col-form-label{
+.col-form-label {
   white-space: nowrap;
 }
-
-
-
-
 
 .ag-theme-balham .ag-cell {
   line-height: unset;
   border: 1px solid transparent;
   border-left: 1px solid #dee2e6;
   padding-left: 5px;
-  padding-right: 5px; }
+  padding-right: 5px;
+}
 
-  .ag-theme-balham .ag-header-cell,
-  .ag-theme-balham .ag-header-group-cell {
-    border-style: solid;
-    border-color: #BDC3C7;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-width: 0;
-  }
+.ag-theme-balham .ag-header-cell,
+.ag-theme-balham .ag-header-group-cell {
+  border-style: solid;
+  border-color: #bdc3c7;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-width: 0;
+}

@@ -36,13 +36,13 @@ export class JsTreeComponent implements OnInit {
     }); */
 
     // =====================================
-    $( () => {
+    $(() => {
       var jsondata = [{
         text: "Products",
         data: {},
         children: [{
           text: "Fruit",
-          "icon" : "glyphicon glyphicon-flash",
+          "type": "folder",
           data: {},
           children: [
             { text: "Apple", data: { price: 0.1, quantity: 20 } },
@@ -84,6 +84,11 @@ export class JsTreeComponent implements OnInit {
         },
         "core": {
           'data': jsondata
+        },
+        "types": {
+          "folder": {
+            "icon": "jstree-icon jstree-file"
+          }
         },
         plugins: ["grid", "types"]
       });
