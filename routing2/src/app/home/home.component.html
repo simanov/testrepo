@@ -1,0 +1,17 @@
+<div class="card-wrapper">
+  <mat-card>
+    <img width="100%" src="/assets/nodes.png" alt="">
+    <mat-card-content>
+      <mat-card-title>Welcome to Angular 2 Named Router Outlets</mat-card-title>
+      <mat-card-subtitle>
+        Select a route above or click the button below to see what different router-outlets produce.
+      </mat-card-subtitle>
+      <mat-card-actions>
+        <button mat-raised-button class="mat-primary"
+          [routerLink]="['/speakers', {outlets: {list: ['speakersList'], bio: ['none']}}]">
+          Speakers
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,109 @@
+<div class="basecontent d-flex flex-row bd-highlight">
+
+  <div class="myside p-2 bd-highlight text-nowrap">
+    <div class="rmaside">
+      <a href="#" (click)="dispStatus = !dispStatus"><i class="fa fa-fw fa-close"></i></a>
+    </div>
+    <aside [ngClass]="dispStatus ? 'd-none' : ''">
+      <div class="sidebar left" id="leftSidebar" [ngClass]="fliphStatus ? 'fliph' : 'nonFliph'">
+        <ul class="list-sidebar bg-default">
+          <li> <a href="#" (click)="fliphStatus = !fliphStatus"><i class="fa fa-fw fa-bars"></i></a> </li>
+          <li> <a href="#" (click)="fliphStatus = !fliphStatus"><i class="fa fa-search"></i></a> </li>
+          <li> <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <i
+                class="fa fa-th-large"></i> <span class="nav-label"> Dashboards </span> <span
+                class="fa fa-chevron-left pull-right"></span> </a>
+            <ul class="sub-menu collapse" id="dashboard" data-parent="#leftSidebar">
+              <li><a href="#">CSS3 Animation</a></li>
+              <li><a href="#">General</a></li>
+              <li><a href="#">Buttons</a></li>
+              <li><a href="#">Tabs & Accordions</a></li>
+              <li><a href="#">Typography</a></li>
+              <li><a href="#">FontAwesome</a></li>
+              <li><a href="#">Slider</a></li>
+              <li><a href="#">Panels</a></li>
+              <li><a href="#">Widgets</a></li>
+              <li><a href="#">Bootstrap Model</a></li>
+            </ul>
+          </li>
+          <li> <a href="#" data-toggle="collapse" class="collapsed active"><i class="fa fa-diamond"></i> <span
+                class="nav-label">Layouts</span></a> </li>
+          <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed active"> <i
+                class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span> <span
+                class="fa fa-chevron-left pull-right"></span> </a>
+            <ul class="sub-menu collapse" id="products" data-parent="#leftSidebar">
+              <li class="active"><a href="#">CSS3 Animation</a></li>
+              <li><a href="#">General</a></li>
+              <li><a href="#">Buttons</a></li>
+              <li><a href="#">Tabs & Accordions</a></li>
+              <li><a href="#">Typography</a></li>
+              <li><a href="#">FontAwesome</a></li>
+              <li><a href="#">Slider</a></li>
+              <li><a href="#">Panels</a></li>
+              <li><a href="#">Widgets</a></li>
+              <li><a href="#">Bootstrap Model</a></li>
+              <li><a href="#">Very Long Content for Side Navigation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+
+  </div>
+
+  <!-- CONTENT -->
+
+
+  <div class="mycontent p-2 flex-fill bd-highlight">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
+    voluptates, laborum magnam nostrum cum nesciunt quisquam asperiores! Maiores et quo quia laboriosam accusantium
+    repudiandae architecto non quibusdam doloremque a, quidem neque ab sint illo aut eos? Asperiores necessitatibus
+    repellendus ipsam fugit ipsum illo molestias veniam ad quaerat nemo nulla provident omnis, ratione perspiciatis
+    inventore cumque, exercitationem saepe ab. Eius recusandae corrupti possimus non nisi quam cum veniam est molestias
+    quisquam, impedit sunt veritatis, aperiam sequi nesciunt blanditiis praesentium ullam tempora, inventore enim
+    obcaecati rem amet! Fugiat assumenda suscipit eaque qui culpa labore voluptatum dignissimos neque, deserunt iste
+    accusantium dicta laudantium.
+  </div>
+</div>

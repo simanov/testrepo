@@ -1,0 +1,19 @@
+<div style="float: left">
+  <ul>
+    <li>
+      <a [routerLink]="['numbers']" routerLinkActive="router-link-active">NUMBERS0</a>
+      <a [routerLink]="['/numbers',{outlets: { bscsdetails: ['numbers'] } }]">NUMBERS</a>
+    </li>
+    <li><a [routerLink]="['/routePath']" routerLinkActive="router-link-active">BSCS 2</a></li>
+    <li><a [routerLink]="['/routePath']" routerLinkActive="router-link-active">BSCS 3</a></li>
+  </ul>
+  <!-- <router-outlet name="bscslist"></router-outlet> -->
+</div>
+<div style="float: right">
+  right
+  <router-outlet name="bscsdetails"></router-outlet>
+</div>
+
+
+
+<!-- <a [routerLink]="[{ outlets: { right: ['productslist'],sidebar: ['products'] } }]"></a> -->

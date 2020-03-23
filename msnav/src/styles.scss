@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variables";
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+// @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css";
+
+.search-input {
+  outline: none;
+  border-style: none;
+}
+
+.input-group-addon-btn:focus,
+.input-group-addon-btn:active,
+.input-group-addon-btn:hover {
+  outline: none;
+  border-style: none;
+}

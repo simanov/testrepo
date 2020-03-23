@@ -1,0 +1,69 @@
+nav {
+  //border: 1px solid #000000;
+  background-color: white;
+  opacity: 0.95;
+  color: #5c2483 !important;
+}
+
+.nav-col {
+  border-bottom: 1px solid #5c2483;
+}
+
+.logo {
+  height: 23px;
+}
+
+.nav-png {
+  height: 14px;
+  margin-right: 2px;
+}
+
+.user-png {
+  vertical-align: bottom;
+  /* margin-top: 1px;
+  height: 20px;
+  padding: 2px 4px;
+  border: 1px solid #5c2483;
+  border-radius: 30%; */
+}
+
+.user-dd {
+  border: 1px solid;
+  border-radius: 3px;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: aliceblue;
+}
+
+/*<img src="../assets/img/logo.png" alt="Azercell" class="logo d-inline-block align-top">*/
+.input-group-addon-btn {
+  position: absolute;
+  left: 0px;
+  z-index: 9;
+  outline: aliceblue;
+}
+
+.nav-src-btn-icon {
+  color: #5c2483;
+}
+
+.input-group-addon-btn:focus {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.input-group-addon-btn:focus,
+.input-group-addon-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.nav-top-search-input {
+  color: #5c2483;
+  border-style: none;
+  background-color: transparent;
+  /* margin-right: 5px;
+  padding-left: 22px; */
+}
