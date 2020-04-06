@@ -1,0 +1,279 @@
+<config instanceName="emeraldOne" port="9990">
+    <connectionPools>
+        <connectionPool name="emerald-pool"
+                        username="smsserv"
+                        password="smsserv"
+                        url="jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.137)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.138)(PORT=1521))  (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.139)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.140)(PORT=1521)) (FAILOVER=ON)(LOAD_BALANCE=YES)	(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=APPGROUP1.AZSRVC)	(FAILOVER_MODE=(TYPE=SELECT)(METHOD=PRECONNECT)(RETRIES=180)(DELAY=5))) )"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="20"
+                        maxActive="60"
+                        >
+            <!-- (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.153.139)(PORT=1521))	 -->            
+            <maxAge>300000</maxAge>
+            <jmxEnabled>true</jmxEnabled>
+            <testWhileIdle>true</testWhileIdle>
+            <testOnBorrow>false</testOnBorrow>
+            <validationQuery>SELECT 1 FROM DUAL</validationQuery>
+            <testOnReturn>false</testOnReturn>
+            <validationInterval>30000</validationInterval>
+            <timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+            <maxWait>10000</maxWait>
+            <removeAbandonedTimeout>60</removeAbandonedTimeout>
+            <minEvictableIdleTimeMillis>30000</minEvictableIdleTimeMillis>
+            <minIdle>20</minIdle>
+            <maxIdle>60</maxIdle>
+            <logAbandoned>false</logAbandoned>
+            <removeAbandoned>true</removeAbandoned>
+            <initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+            <!--initSQL>ALTER SESSION SET CURRENT_SCHEMA = SUBSCRIPTION</initSQL-->
+        </connectionPool>
+        
+        <connectionPool name="onsubs-pool"
+                        username="emerald"
+                        password="emerald"
+                        url="jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = onsubs-scan.azercell.com)(PORT = 1521)) (FAILOVER = ON) (LOAD_BALANCE = YES)(CONNECT_DATA =(SERVER = DEDICATED) (SERVICE_NAME = SRV_ONSUBS.AZERCELL.COM)))"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="3"
+                        maxActive="30"
+                        >
+            <maxAge>600000</maxAge>
+            <jmxEnabled>true</jmxEnabled>
+            <testWhileIdle>true</testWhileIdle>
+            <testOnBorrow>false</testOnBorrow>
+            <validationQuery>SELECT 1 FROM DUAL</validationQuery>
+            <testOnReturn>false</testOnReturn>
+            <validationInterval>30000</validationInterval>
+            <timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+            <maxWait>80000</maxWait>
+            <removeAbandonedTimeout>60</removeAbandonedTimeout>
+            <minEvictableIdleTimeMillis>60000</minEvictableIdleTimeMillis>
+            <minIdle>3</minIdle>
+            <maxIdle>30</maxIdle>
+            <logAbandoned>false</logAbandoned>
+            <removeAbandoned>true</removeAbandoned>
+            <initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+        </connectionPool>
+        
+        <connectionPool name="bscs-pool"
+                        username="emerald"
+                        password="emerald"
+                        url="jdbc:oracle:thin:@10.0.153.20:1521:BSCS"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="3"
+                        maxActive="10"
+                        >
+            <maxAge>300000</maxAge>
+            <jmxEnabled>true</jmxEnabled>
+            <testWhileIdle>true</testWhileIdle>
+            <testOnBorrow>false</testOnBorrow>
+            <validationQuery>SELECT 1 FROM DUAL</validationQuery>
+            <testOnReturn>false</testOnReturn>
+            <validationInterval>30000</validationInterval>
+            <timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+            <maxWait>120000</maxWait>
+            <removeAbandonedTimeout>60</removeAbandonedTimeout>
+            <minEvictableIdleTimeMillis>30000</minEvictableIdleTimeMillis>
+            <minIdle>3</minIdle>
+            <maxIdle>10</maxIdle>
+            <logAbandoned>false</logAbandoned>
+            <removeAbandoned>true</removeAbandoned>
+            <initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+        </connectionPool>
+       
+	<connectionPool name="bscs-billing-pool"
+                        username="emerald_billing"
+                        password="emerbil"
+                        url="jdbc:oracle:thin:@10.0.153.20:1521:BSCS"
+                        driverClassName="oracle.jdbc.driver.OracleDriver"
+                        initialSize="3"
+                        maxActive="10"
+                        >
+            <maxAge>300000</maxAge>
+            <jmxEnabled>true</jmxEnabled>
+            <testWhileIdle>true</testWhileIdle>
+            <testOnBorrow>false</testOnBorrow>
+            <validationQuery>SELECT 1 FROM DUAL</validationQuery>
+            <testOnReturn>false</testOnReturn>
+            <validationInterval>30000</validationInterval>
+            <timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+            <maxWait>120000</maxWait>
+            <removeAbandonedTimeout>60</removeAbandonedTimeout>
+            <minEvictableIdleTimeMillis>30000</minEvictableIdleTimeMillis>
+            <minIdle>3</minIdle>
+            <maxIdle>10</maxIdle>
+            <logAbandoned>false</logAbandoned>
+            <removeAbandoned>true</removeAbandoned>
+            <initSQL>call DBMS_APPLICATION_INFO.set_module ('emeraldOne','')</initSQL>
+        </connectionPool>
+ 
+    </connectionPools>
+    
+    
+    
+    <smsSenders>        
+        <smsSender name="default" connectionPool = "onsubs-pool"> 
+            <sourceTon>5</sourceTon>
+            <sourceNpi>0</sourceNpi>
+            <priority>5</priority>
+            <smsValidity>7</smsValidity>
+            <intervalStart>0</intervalStart>
+            <intervalEnd>24</intervalEnd>
+        </smsSender>
+	<smsSender name="fromshortnumber" connectionPool = "onsubs-pool"> 
+            <sourceTon>0</sourceTon>
+            <sourceNpi>1</sourceNpi>
+            <priority>5</priority>
+            <smsValidity>7</smsValidity>
+            <intervalStart>0</intervalStart>
+            <intervalEnd>24</intervalEnd>
+	</smsSender>
+	<smsSender name="sms_http_alphanumeric" connectionPool = "onsubs-pool" connectionType="http">
+	    <sourceTon>5</sourceTon>
+	    <sourceNpi>0</sourceNpi>
+	    <priority>5</priority>
+	    <smsValidity>7</smsValidity>
+	    <intervalStart>0</intervalStart>
+	    <intervalEnd>24</intervalEnd>
+	    <webUrl>http://10.0.230.13:8170/SMSGateUni/SMSGateServlet?pdutype=T&amp;Source_addr={0}&amp;Destination_addr={1}&amp;Source_addr_ton=5&amp;Source_addr_npi=0&amp;Short_message={2}</webUrl>
+	</smsSender>
+	<smsSender name="sms_http_short_number" connectionPool = "onsubs-pool" connectionType="http">
+	    <sourceTon>0</sourceTon>
+	    <sourceNpi>1</sourceNpi>
+	    <priority>5</priority>
+	    <smsValidity>7</smsValidity>
+	    <intervalStart>0</intervalStart>
+	    <intervalEnd>24</intervalEnd>
+	    <webUrl>http://10.0.230.13:8170/SMSGateUni/SMSGateServlet?pdutype=T&amp;Source_addr={0}&amp;Destination_addr={1}&amp;Source_addr_ton=0&amp;Source_addr_npi=1&amp;Short_message={2}</webUrl>
+	</smsSender>
+	<smsSender name="openmind" connectionPool = "onsubs-pool" connectionType="openmind">
+	   <webUrl>http://10.0.154.88:8070/appsender</webUrl>
+	   <username>app_sender</username>
+	   <password>Fafozam1</password>
+	</smsSender>
+    </smsSenders>
+    
+    <threadPools>
+        <threadPool name="default" size="40" queueSize="1000"/>
+        <threadPool name="smsSender" size="1" queueSize="100"/>
+        <threadPool name="balancePluginThreadPool" size="30" queueSize="5000"/>
+        <threadPool name="vsmeSubscriptionPluginThreadPool" size="30" queueSize="3000"/>
+    </threadPools>
+
+    <plugins>
+        <!--<plugin id="1011" class="com.azercell.emerald.plugins.balance.BalancePlugin" threadPoolName="balancePluginThreadPool" configFile="../conf/emerald-balance-plugin-config.properties"/>
+	--><plugin id="1012" class="com.azercell.handset.unsubscriber.Unsubscriber" threadPoolName="vsmeSubscriptionPluginThreadPool" configFile="../../handset/huawei2012/conf/huaweiHandsetCampaign-2012-config.xml"/> 
+        <plugin id="1013" class="com.azercell.handset.unsubscriber.Unsubscriber" threadPoolName="vsmeSubscriptionPluginThreadPool" configFile="../../handset/regional2012/conf/handset-config.xml"/> 
+	<!--<plugin id="1015" class="com.azercell.emerald.plugins.lte.LTEActivation" threadPoolName="default" configFile="../conf/LTEActivation-config.properties"/>-->
+	<plugin id="1021" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/recurring_dailiy_bundles.xml"/>
+	<plugin id="1022" class="com.azercell.emerald.dealeronline.PackSaleProcessor" threadPoolName="default" configFile="../conf/DealerOnlinePackSale/dealer-online-sale.xml"/>
+	<plugin id="1023" class="com.azercell.acquistition2013.SMSProcessor" threadPoolName="default" configFile="../conf/acquisition_stop_emerald_plugin.properties"><id>1023</id></plugin>
+	<plugin id="1024" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/PTR-16530799-SNCODE-REMOVER.xml"/>
+	<!--plugin id="1025" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/ITB_sms_processor.xml"/-->
+	<plugin id="1026" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/notify_me_sms_processor.xml"/>
+	
+	<plugin id="1027" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/roaming_deactivation.xml"/>
+	<plugin id="1028" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/portout_unsubscription.xml"/>
+	<plugin id="1029" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/PORTIN2-SNCODE-REMOVER.xml"/>
+	<plugin id="1030" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/BYFEmeraldPlugin.xml"/>
+	<plugin id="1031" class="com.azercell.handset2015.SMSProcessor" threadPoolName="default" configFile="../conf/handset2015_huawei_stop_emerald_plugin.properties"/>
+	<plugin id="1032" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/Camel/camel_sms_processor.xml"/>
+
+	<plugin id="-1" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/sms-sender.properties"/>
+	 <plugin id="-3" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/sms-sender-http.properties"/>
+	<plugin id="1000" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/mip-invalid-request.properties"/>
+	<plugin id="9030" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/mip-30-invalid-keyword.properties"/>
+	<plugin id="9100" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/mip-100-invalid-keyword.properties"/>
+	<plugin id="9300" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/mip-300-invalid-keyword.properties"/>
+	<plugin id="6969" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/upgrade-sms-sender.properties"/>
+	<plugin id="1091" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/gencol_is_off_template.properties"/>
+
+        
+	<!--plugin id="1005" class="com.azercell.emerald.test.SamplePlugin" threadPoolName="default" configFile="../conf/sample-config.properties"/-->
+
+	<plugin id="1033" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/BundleTariffBalance/bundle_tariff_balance_emerald.xml"/>
+	<plugin id="1034" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/BundleTariffAddon/bundletarriff_addon_request_emrald.xml"/>
+	<plugin id="1035" class="com.azercell.handset2015.SMSProcessor" threadPoolName="default" configFile="../conf/handset2015_samsung_stop_emerald_plugin.properties"/>
+
+	<!-- Uber Promo  -->
+	<plugin id="1036" class="com.azercell.emerald.uber.promo.UberPromoProcessor" threadPoolName="default" configFile="../conf/UberPromo/uber-promo.xml"/>
+
+	<!-- SD: 6981. GencOl Lottery -->
+        <plugin id="1037" class="com.azercell.emerald.xml.XmlPlugin" threadPoolName="default" configFile="../conf/GencOlLottery/gencol_lottery.xml"/>
+
+	<!-- Regional Voice Pack -->
+	<plugin id="1038" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/BolgeUnlimitedMinutes/Bolge_Unlimited_voice_pack.xml"/>
+	<plugin id="2038" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/BolgeUnlimitedMinutes/Bolge_Unlimited_voice_pack_evolution.xml"/>
+	<plugin id="1073" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/LTEPACK.xml"/>
+
+
+	<!-- Baku Voice Pack  -->
+	<plugin id="1039" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/BakuVoicePack/baku_voice_pack25.xml"/>
+	<plugin id="1040" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/BakuVoicePack/baku_voice_pack35.xml"/>
+	<plugin id="1041" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/BakuVoicePack/baku_voice_pack40.xml"/>
+	<plugin id="1042" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/BakuVoicePack/baku_voice_pack50.xml"/>
+	<plugin id="1043" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/BakuVoicePack/baku_voice_pack60.xml"/>
+	<plugin id="1044" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/BakuVoicePack/baku_voice_pack70.xml"/>
+
+	<!-- Change 1027. Task 8416 -->
+	<plugin id="1045" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/PostPaidPortOutHedsiz/hedsiz_discount_camaign.xml"/>
+
+	<!-- Change 1048 -->
+	<plugin id="1047" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/Weekly500MBMay2017/weekly-500mb-may-2017.xml"/>
+
+	<!-- Change 1077 -->
+        <plugin id="1048" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/FirstTime50PercentCampaign/first-time-50-percent-campaign.xml"/>
+
+	<!-- Change 1085 -->
+	<plugin id="1049" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/4gSimReplacement/request-handler-4G-sim-replacement.xml"/>
+
+	<!-- Change 1100 -->
+	<plugin id="1050" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/loyalty-cancellation-sms-sender.properties"/>
+	
+	<!-- NOTE: Dont use plugin IDs 1051, 1052. They are used by test emerald in cotnainer1n3_2 -->
+	<!-- Smpp queue inserter -->
+	<plugin id="1055" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/SmppQueueProcessor/smpp_queue_processor.xml"/>
+
+	<!-- TASK 9679 -->
+	<plugin id="1057" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/Unlimited_minutes_2020.xml"/>
+<!--
+        <plugin id="1058" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/EmeraldRequestHandler/request-handler-pptc-config.xml"/>
+        <plugin id="2048" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/EmeraldRequestHandler/request-handler-pptc-config.xml"/>
+ --> 
+        <plugin id="1058" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/tariff_change.xml"/>
+        <plugin id="2048" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/tariff_change.xml"/>
+        <plugin id="7777" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/tariff_change2.xml"/>
+     <!-- task 10018     -->
+      <plugin id="1053" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/Mnpkombo/mnpkombo_25_45_old.xml"/>
+
+     <!-- task 11379     -->
+ <plugin id="1078" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/Mnpkombo/mnpkombo_25_45_new.xml"/> 	
+
+	<!-- McDonalds campaign with promo codes Rauf Aliyev, Elmir Babakishiyev, Ali Qojayev, Ehtiram Guliyev TASK 10868-->
+	<plugin id="3050" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/McDonalds/MCDonalds-free-minutes.xml"/>
+
+	<!-- Ganja special offer project Tural Muradbeyli, Toghrul Farajov, Ehtiram Guliyev Tasks 10768 10769 -->
+	<plugin id="1060" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/GanjaSpecialOffer/ganja-special-offers-data-packs-subscribe.xml"/>
+	<plugin id="1061" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/GanjaSpecialOffer/ganja-special-offers-data-packs-unsubscribe.xml"/>
+	<plugin id="1062" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/GanjaSpecialOffer/ganja-special-offers-voice-packs-subscribe.xml"/>
+	<plugin id="1063" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/GanjaSpecialOffer/ganja-special-offers-voice-packs-unsubscribe-new.xml"/>    
+	<!-- Ganja special offer end-->
+
+	<!-- Information about keywords via 5080. Toghrul Aliyev, Toghrul Farajov, Ehtiram Guliyev -->
+	<plugin id="1064" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/plugins/info_via_5080.xml"/>
+	<!-- TASK 0000010627 Toghrul Aliyev, Toghrul Farajov, Ehtiram Guliyev New Bolge Unlimited Pack which automatically changes tariff to Bolge and give unlimited minutes with Storm -->
+<!--	<plugin id="1065" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/RegionalVoicePack2/voice_pack_emerald.xml"/>
+-->	<!-- Information about keywords via 2525. Toghrul Farajov, Ehtiram Guliyev, Kemale Dushdurova SD 0000169146 -->
+	<plugin id="1066" class="com.azercell.emerald.test.SmsSenderPlugin" threadPoolName="smsSender" configFile="../conf/plugins/info_via_2525.xml"/>
+	<!-- Task 11118 4G+ keyword-->
+	<plugin id="1067" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/Lte/lte-checker.xml"/>
+	<plugin id="1074" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/RegionalBundle/RegionalBundleSMS.xml"/>
+	<plugin id="1075" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/RegionalBundle/RegionalBundleUSSD.xml"/>
+	<plugin id="1076" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/Free_G5_students.xml"/>
+	<plugin id="1080" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/PromoCodesCampaign/promo-codes-campaign.xml"/>
+
+	<plugin id="1081" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/RegionalBundleBolge/regional-bundle-bolge.xml"/>
+        <!-- UMICO -->
+        <plugin id="1090" class="com.azercell.emerald.request.handler.RequestHandlerPlugin" threadPoolName="default" configFile="../conf/plugins/umico.xml"/>
+
+</plugins>
+</config>

@@ -1,3 +1,9 @@
-<app-bscs-aside></app-bscs-aside>
-<router-outlet name="sidenav"></router-outlet>
 <p>bscs works!</p>
+<div class="asidemain d-flex">
+  <div class="asideclass text-nowrap">
+    <app-bscs-aside></app-bscs-aside>
+  </div>
+  <div class="rightclass">
+    <router-outlet></router-outlet>
+  </div>
+</div>

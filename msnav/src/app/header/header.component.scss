@@ -1,69 +1,91 @@
 nav {
-  //border: 1px solid #000000;
   background-color: white;
-  opacity: 0.95;
   color: #5c2483 !important;
-}
-
-.nav-col {
-  border-bottom: 1px solid #5c2483;
+  line-height: 1.4;
+  //opacity: 0.95;
 }
 
 .logo {
   height: 23px;
-}
-
-.nav-png {
-  height: 14px;
-  margin-right: 2px;
-}
-
-.user-png {
-  vertical-align: bottom;
-  /* margin-top: 1px;
-  height: 20px;
-  padding: 2px 4px;
-  border: 1px solid #5c2483;
-  border-radius: 30%; */
-}
-
-.user-dd {
-  border: 1px solid;
-  border-radius: 3px;
+  padding-right: 16px;
 }
 
 .navbar-toggler {
-  border: none;
-  outline: aliceblue;
+  color: #5c2483 !important;
+  border-style: none !important;
+  outline: none !important;
 }
 
-/*<img src="../assets/img/logo.png" alt="Azercell" class="logo d-inline-block align-top">*/
+.navbar-toggler:hover {
+  color: #8c5fac !important;
+}
+
+.nav-top-search input:hover,
+.nav-top-search input:active,
+.nav-top-search input:focus {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
+.nav-top-search input {
+  border: none;
+}
+
+.input-group-addon-btn button {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
 .input-group-addon-btn {
   position: absolute;
   left: 0px;
   z-index: 9;
   outline: aliceblue;
+  .btn {
+    padding: 0.15rem 0.35rem 0.15rem 0.32rem;
+  }
 }
 
 .nav-src-btn-icon {
   color: #5c2483;
 }
 
-.input-group-addon-btn:focus {
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-
-.input-group-addon-btn:focus,
-.input-group-addon-btn:active {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
 .nav-top-search-input {
   color: #5c2483;
-  border-style: none;
   background-color: transparent;
-  /* margin-right: 5px;
-  padding-left: 22px; */
+}
+
+@media (max-width: 575px) {
+  .logo-big {
+    display: none;
+  }
+  .nav-top-search {
+    order: 2;
+  }
+  .navbar-toggler {
+    order: 3;
+  }
+}
+
+@media (min-width: 576px) {
+  .logo-sm {
+    display: none;
+  }
+}
+
+.nav-link {
+  color: #7c6eb0;
+  padding: 2px;
+}
+
+.nav-link:hover {
+  color: #5c2483;
+  border-bottom: 1px solid #7c6eb0;
+}
+
+.nav-link.active {
+  color: #5c2483;
+  border-bottom: 1px solid #5c2483;
 }

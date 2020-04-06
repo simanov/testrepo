@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<properties>
+		<property name="WRONG_INPUT_TEMPLATE" value="#template=306#" />
+		<property name="DIAMOND3_URL" value="http://10.0.139.208" />
+		<property name="DIAMOND3_USER" value="EmeraldYouthRenewPlugin" />
+		<property name="SMS_SOURCE" value="Azercell" />
+		<property name="DIAMOND3_PASSWORD" value="herHansisapar0l" />
+		<property name="SMS_SENDER" value="default" />
+	</properties>
+	<patterns>
+		<handler-pattern id="SadeRenewPattern" name="${name}" regex="${message}">
+			<request action="ACIP5:GetOffers">
+				<request-params>
+					<param name="subscriberNumber" value="MSISDN_F9" type="CONTEXT" />
+					<param name="MSISDN" value="MSISDN" type="CONTEXT" />
+				</request-params>
+				<response-list>
+					<response xpath="MethodResponse/ACIP5RawResponse/params/param/value/struct/member[name='offerInformation']/value/array/data/value/struct/member[name='offerID']/value/i4[text() = '${offerId}']" result="${offerId}">
+						<request action="Storm.execute">
+							<request-params>
+								<param name="msisdn" value="MSISDN_F9" type="CONTEXT" />
+								<param name="stormAction" value="${sadeStormAction}" type="CONSTANT" />
+							</request-params>
+							<response-list>
+								<response xpath="MethodResponse/ResponseCode" result="0">
+									<templates>
+										<template receiver="MSISDN" template="${sms_template}" />
+									</templates>
+								</response>
+							</response-list>
+						</request>
+					</response>
+					<response>
+						<request action="Storm.execute">
+							<request-params>
+								<param name="msisdn" value="MSISDN" type="CONTEXT" />
+								<param name="stormAction" value="insert_pptc_queue" type="CONSTANT" />
+								<param name="message" value="MESSAGE" type="CONTEXT" />
+								<param name="destAddress" value="7575" type="CONSTANT" />
+							</request-params>
+						</request>
+					</response>
+				</response-list>
+			</request>
+		</handler-pattern>
+		<handler-pattern id="NewGencOlRenewPattern" name="${name}" regex="${message}">
+			<!-- Check if subscriber has youth 5 package -->
+			<request action="VSME.getSubscriptionList">
+				<request-params>
+					<param name="msisdn" value="MSISDN" type="CONTEXT" />
+				</request-params>
+				<response-list>
+					<response xpath="boolean(MethodResponse/VSMEResponse/Subscriptions/Subscription/ProductExternalId[${condition}])" result="true">
+						<request action="VALIDATE">
+							<request-params>
+								<param name="MSISDN" value="MSISDN" type="CONTEXT" />
+								<param name="validator" value="VALIDATOR_GENCOL_RESTRICTION_FOR_ONCE" type="CONSTANT" />
+							</request-params>
+							<response-list>
+								<response xpath="MethodResponse/ResponseCode" result="0">
+									<templates>
+										<template receiver="MSISDN" template="#template=4430#" />
+									</templates>
+								</response>
+								<response>
+									<request action="Storm.execute">
+										<request-params>
+											<param name="stormAction" value="YOUTH_269_RENEW" type="CONSTANT" />
+											<param name="msisdn" value="MSISDN_F9" type="CONTEXT" />
+											<param name="command_id" value="${command_id}" type="CONSTANT" />
+										</request-params>
+										<response-list>
+											<!-- If youth pack is not found in subscriber, then send command to STORM for inserting to queue -->
+											<response xpath="MethodResponse/composite/command[id='YOUTH_269_YouthRenew']/details/RequestResponse/MethodResponse/ResponseCode" result="1">
+												<request action="Storm.execute">
+													<request-params>
+														<param name="msisdn" value="MSISDN" type="CONTEXT" />
+														<param name="stormAction" value="insert_pptc_queue" type="CONSTANT" />
+														<param name="message" value="MESSAGE" type="CONTEXT" />
+														<param name="destAddress" value="7575" type="CONSTANT" />
+													</request-params>
+												</request>
+											</response>
+											<!-- Sedn sms if subscriber has youth package, but data is not zero -->
+											<response xpath="MethodResponse/composite/command[id='YOUTH_269_YouthRenew']/details/RequestResponse/MethodResponse/ResponseCode" result="2">
+												<templates>
+													<template receiver="MSISDN" template="#template=4429#" />
+												</templates>
+											</response>
+											<!-- Successfull case, send sms ads. -->
+											<response xpath="MethodResponse/composite/command[id='YOUTH_269_YouthRenew']/details/RequestResponse/MethodResponse/VSMEResponse/ResultCode" result="0">
+												<templates>
+													<template receiver="MSISDN" template="#template=4908#"/>
+												</templates>
+											</response>
+											<!-- Not enough balance -->
+											<response xpath="MethodResponse/composite/command[id='YOUTH_269_YouthRenew']/details/RequestResponse/MethodResponse/VSMEResponse/ErrorCode" result="350">
+												<templates>
+													<template receiver="MSISDN" template="#template=4574#" />
+												</templates>
+											</response>
+											<!-- Default template, generic error case-->
+											<response>
+												<templates>
+													<template receiver="MSISDN" template="#template=699#" />
+												</templates>
+											</response>
+										</response-list>
+									</request>
+								</response>
+							</response-list>
+						</request>
+					</response>
+					<response>
+						<request action="Storm.execute">
+							<request-params>
+								<param name="msisdn" value="MSISDN" type="CONTEXT" />
+								<param name="stormAction" value="insert_pptc_queue" type="CONSTANT" />
+								<param name="message" value="MESSAGE" type="CONTEXT" />
+								<param name="destAddress" value="7575" type="CONSTANT" />
+							</request-params>
+						</request>
+					</response>
+				</response-list>
+			</request>
+		</handler-pattern>
+		<handler-pattern id="AllinOneBundleRenewPattern" name="${name}" regex="${message}">
+			<!-- Check if subscriber is B2C postpaid -->
+			<request action="VALIDATE">
+				<request-params>
+					<param name="MSISDN" value="MSISDN" type="CONTEXT" />
+					<param name="validator" value="VALIDATOR_CHECK_CUSTOMER_TYPE" type="CONSTANT" />
+					<param name="TYPE_PLAN_NOT_IN_LIST" value="PREPAID_CONSUMER,PREPAID_CORPORATE" type="CONSTANT" />
+				</request-params>
+				<response-list>
+					<response xpath="MethodResponse/ResponseCode" result="0">
+						<request action="Storm.execute">
+							<request-params>
+								<param name="msisdn" value="MSISDN" type="CONTEXT" />
+								<param name="stormAction" value="insert_into_650" type="CONSTANT" />
+								<param name="message" value="MESSAGE" type="CONTEXT" />
+							</request-params>
+						</request>
+					</response>
+					<response>
+						<request action="VSME.getSubscriptionList">
+							<request-params>
+								<param name="msisdn" value="MSISDN" type="CONTEXT" />
+							</request-params>
+							<response-list>
+								<response xpath="boolean(MethodResponse/VSMEResponse/Subscriptions/Subscription/ProductExternalId[text()='${ext_id}'])" result="true">
+									<request action="VALIDATE">
+										<request-params>
+											<param name="MSISDN" value="MSISDN" type="CONTEXT" />
+											<param name="validator" value="VALIDATOR_GENCOL_RESTRICTION_FOR_ONCE" type="CONSTANT" />
+										</request-params>
+										<response-list>
+											<response xpath="MethodResponse/ResponseCode" result="0">
+												<templates>
+													<template receiver="MSISDN" template="#template=4734#" />
+												</templates>
+											</response>
+											<response>
+												<request action="Storm.execute">
+													<request-params>
+														<param name="stormAction" value="ALL_IN_ONE_RENEW" type="CONSTANT" />
+														<param name="msisdn" value="MSISDN" type="CONTEXT" />
+														<param name="renew_social" value="${social_pack}" type="CONSTANT" />
+													</request-params>
+													<response-list>
+														<!-- If youth pack is not found in subscriber, then send command to STORM for inserting to queue -->
+														<response xpath="MethodResponse/composite/command[id='ALL_IN_ONE_CALL_RENEW_PLUGIN']/details/RequestResponse/MethodResponse/ResponseCode" result="1">
+															<request action="Storm.execute">
+																<request-params>
+																	<param name="msisdn" value="MSISDN" type="CONTEXT" />
+																	<param name="stormAction" value="insert_pptc_queue" type="CONSTANT" />
+																	<param name="message" value="MESSAGE" type="CONTEXT" />
+																	<param name="destAddress" value="7575" type="CONSTANT" />
+																</request-params>
+															</request>
+														</response>
+														<!-- Sedn sms if subscriber has youth package, but data is not zero -->
+														<response xpath="MethodResponse/composite/command[id='ALL_IN_ONE_CALL_RENEW_PLUGIN']/details/RequestResponse/MethodResponse/ResponseCode" result="2">
+															<templates>
+																<template receiver="MSISDN" template="#template=4429#" />
+															</templates>
+														</response>
+														<!-- Successfull case -->
+														<response xpath="MethodResponse/composite/command[id='ALL_IN_ONE_CALL_RENEW_PLUGIN']/details/RequestResponse/MethodResponse/VSMEResponse/ResultCode" result="0">
+															<templates>
+																<!--template receiver="MSISDN" template="#template=2397#" -->
+															</templates>
+														</response>
+														<!-- Not enough balance -->
+														<response xpath="MethodResponse/composite/command[id='ALL_IN_ONE_CALL_RENEW_PLUGIN']/details/RequestResponse/MethodResponse/VSMEResponse/ErrorCode" result="350">
+															<templates>
+																<template receiver="MSISDN" template="#template=4906#" />
+															</templates>
+														</response>
+														<!-- Default template, generic error case-->
+														<response>
+															<templates>
+																<template receiver="MSISDN" template="#template=699#" />
+															</templates>
+														</response>
+													</response-list>
+												</request>
+											</response>
+										</response-list>
+									</request>
+								</response>
+								<response>
+									<request action="Storm.execute">
+										<request-params>
+											<param name="msisdn" value="MSISDN" type="CONTEXT" />
+											<param name="stormAction" value="RemoveRegionalBundle_and_Insert_PPTC" type="CONSTANT" />
+											<param name="message" value="MESSAGE" type="CONTEXT" />
+											<param name="destAddress" value="7575" type="CONSTANT" />
+										</request-params>
+									</request>
+								</response>
+							</response-list>
+						</request>
+					</response>
+				</response-list>
+			</request>
+		</handler-pattern>
+		<handler-pattern id="KomboExpiredPattern" name="${name}" regex="${message}">
+			<request action="VALIDATE">
+				<request-params>
+					<param name="validator" value="VALIDATOR_TEST" type="CONSTANT" />
+				</request-params>
+				<response-list>
+					<response>
+						<templates>
+							<template receiver="MSISDN" template="#template=4753#" />
+						</templates>
+					</response>
+				</response-list>
+			</request>
+		</handler-pattern>
+		<handler-pattern id="SerbestInfoPattern" name="${name}" regex="${message}">
+			<request action="VALIDATE">
+				<request-params>
+					<param name="validator" value="VALIDATOR_TEST" type="CONSTANT" />
+				</request-params>
+				<response-list>
+					<response>
+						<templates>
+							<template receiver="MSISDN" template="#template=4834#" />
+						</templates>
+					</response>
+				</response-list>
+			</request>
+		</handler-pattern>
+	</patterns>
+	<handlers>
+		<!-- Gencol2 Pattern Instance  -->
+		<pattern-instance patternId="NewGencOlRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="GencOl2Renew" />
+				<place-holder holder="message" value="^(G2|G 2|2 G|2G|Gencol 2|Gencol2|.750.4.02#)" />
+				<place-holder holder="condition" value="text()='ext_youth_356'" />
+				<place-holder holder="command_id" value="subs_whatsapp_messaging" />
+			</place-holders>
+		</pattern-instance>
+		<!-- Gencol6 Pattern Instance  -->
+		<pattern-instance patternId="NewGencOlRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="GencOl6Renew" />
+				<place-holder holder="message" value="^(G6|G 6|6 G|6G|Gencol 6|Gencol6|.750.4.06#|G5|G5 G8|GENC OL G5|G5 YAZ|G5.|G5,|GENCOL G5|GO5|5G|.750.4.1#)" />
+				<place-holder holder="condition" value="text()='ext_youth_357'" />
+				<place-holder holder="command_id" value="subs_whatsapp_messaging" />
+			</place-holders>
+		</pattern-instance>
+		<!-- Gencol9 Pattern Instance  -->
+		<pattern-instance patternId="NewGencOlRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="GencOl9Renew" />
+				<place-holder holder="message" value="^(G9|9 G|9G|G 9|Gencol 9|Gencol9|.750.4.09#|G8|GO8|8G|.750.4.2#)" />
+				<place-holder holder="condition" value="text()='ext_youth_358'" />
+				<place-holder holder="command_id" value="subs_messaging" />
+			</place-holders>
+		</pattern-instance>
+		<!-- Sade 2 Renew Pattern Instance  -->
+		<pattern-instance patternId="SadeRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="SadeRenew" />
+				<place-holder holder="message" value="^(S2|SADA2|.750.4.7#)" />
+				<place-holder holder="offerId" value="146" />
+				<place-holder holder="sadeStormAction" value="voice_pack_s2_renew" />
+				<place-holder holder="sms_template" value="#template=4958#" />
+			</place-holders>
+		</pattern-instance>
+		<!-- Sade Renew 6 Pattern Instance  -->
+		<pattern-instance patternId="SadeRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="SadeRenew" />
+				<place-holder holder="message" value="^(S 6|S6|SADA6|.750.4.6#)" />
+				<place-holder holder="offerId" value="148" />
+				<place-holder holder="sadeStormAction" value="voice_pack_s6_renew" />
+				<place-holder holder="sms_template" value="#template=4959#" />
+			</place-holders>
+		</pattern-instance>
+		<!-- All in one bundle X1 -->
+		<pattern-instance patternId="AllinOneBundleRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="AllibOneBundleX1" />
+				<place-holder holder="message" value="^(Serbest 10|SERBEST10|S 10|S10||.750.4.10#)" />
+				<place-holder holder="social_pack" value="subs_a1_social_x1" />
+				<place-holder holder="ext_id" value="ext_a1_2gb" />
+			</place-holders>
+		</pattern-instance>
+		<!-- All in one bundle X2 -->
+		<pattern-instance patternId="AllinOneBundleRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="AllibOneBundleX2" />
+				<place-holder holder="message" value="^(Serbest 15|SERBEST15|S 15|S15|.750.4.15#)" />
+				<place-holder holder="social_pack" value="subs_a1_social_x2" />
+				<place-holder holder="ext_id" value="ext_a1_4gb_pre" />
+			</place-holders>
+		</pattern-instance>
+		<!-- All in one bundle X3 -->
+		<pattern-instance patternId="AllinOneBundleRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="AllibOneBundleX3" />
+				<place-holder holder="message" value="^(Serbest 25|Serbest25|S 25|S25|25S|.750.4.25#)" />
+				<place-holder holder="social_pack" value="subs_a1_social_x3" />
+				<place-holder holder="ext_id" value="ext_a1_10gb_pre" />
+			</place-holders>
+		</pattern-instance>
+		<!-- All in one bundle X4 -->
+		<pattern-instance patternId="AllinOneBundleRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="AllibOneBundleX4" />
+				<place-holder holder="message" value="^(S50|.750.4.50#)" />
+				<place-holder holder="social_pack" value="subs_a1_social_x4" />
+				<place-holder holder="ext_id" value="ext_a1_15gb_pre" />
+			</place-holders>
+		</pattern-instance>
+		<!-- All in one bundle X5 -->
+		<pattern-instance patternId="AllinOneBundleRenewPattern">
+			<place-holders>
+				<place-holder holder="name" value="AllibOneBundleX5" />
+				<place-holder holder="message" value="^(S75|.750.4.75#)" />
+				<place-holder holder="social_pack" value="subs_a1_social_x5" />
+				<place-holder holder="ext_id" value="ext_a1_50gb_pre" />
+			</place-holders>
+		</pattern-instance>
+		<!-- Kombo expired  -->
+		<pattern-instance patternId="KomboExpiredPattern">
+			<place-holders>
+				<place-holder holder="name" value="KomboExpired" />
+				<place-holder holder="message" value="^(K8|K16|8K|16K|K 8|K 16|KOMBO|KOMBO8|KOMBO 8|8 K|16 K|.750.4.8#|.750.4.16#)" />
+			</place-holders>
+		</pattern-instance>
+		<!-- Serbest info  -->
+		<pattern-instance patternId="SerbestInfoPattern">
+			<place-holders>
+				<place-holder holder="name" value="SerbestInfo" />
+				<place-holder holder="message" value="^(SERBEST|S)" />
+			</place-holders>
+		</pattern-instance>
+
+		<!-- All other messages to pptc queue-->
+		<handler name="InsertPPTCQueue" regex="^(?!(STOP|Serbest 10|S 10|SERBEST10|Serbest 15|SERBEST15|S 15|Serbest 25|S 25|SERBEST|S|S10|S15|S25|S50|S75|S2|SADA2|S6|S 6|SADA6|G2|G6|G 6|6G|G9|9G|G5|G5 G8|GENC OL G5|G5 YAZ|G5.|G5,|GENCOL G5|GO5|GO8|G8|5G|8G|Gencol 2|Gencol 6|Gencol 9|2 G|6 G|9 G|.750.4.1#|.750.4.2#|.750.4.02#|.750.4.06#|.750.4.09#|.750.4.6#|.750.4.7#|.750.4.10#|.750.4.15#|.750.4.25#|.750.4.50#|.750.4.75#|K8|K16|8K|16K|K 8|K 16|KOMBO|KOMBO8|KOMBO 8|8 K|16 K|.750.4.8#|.750.4.16#)$).*$">
+			<request action="Storm.execute">
+				<request-params>
+					<param name="msisdn" value="MSISDN" type="CONTEXT" />
+					<param name="stormAction" value="RemoveRegionalBundle_and_Insert_PPTC" type="CONSTANT" />
+					<param name="message" value="MESSAGE" type="CONTEXT" />
+					<param name="destAddress" value="7575" type="CONSTANT" />
+				</request-params>
+				<response-list>
+					<response xpath="MethodResponse/composite/command[id='RegionalBundleExecuteDataCommand_remove']/resultCode" result="0">
+						<templates>
+							<template receiver="MSISDN" template="#template=4558#" />
+						</templates>
+					</response>
+				</response-list>
+			</request>
+		</handler>
+	</handlers>
+</config>
