@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<pluginConfig>
+  <operation>
+    <statement connection-pool="eventhandler@ONSUBS">
+      <query><![CDATA[
+		begin
+			update CO_ADD_SERVICES set IMSI = :IMSI, STATUS = 'a' where MSISDN = SUBSTR(:MSISDN, -9);
+			:answer := 'Success';
+			commit;
+		end;
+                ]]></query>
+      <parameters>
+        <param query-param="MSISDN" event-param="msisdn" param-type="INPUT" />
+        <param query-param="IMSI" event-param="imsi" param-type="INPUT" />
+        <param query-param="answer" event-param="ANSWER" param-type="OUTPUT" />
+      </parameters>
+    </statement>
+  </operation>
+</pluginConfig>
